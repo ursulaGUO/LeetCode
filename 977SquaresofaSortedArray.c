@@ -50,4 +50,5 @@ int main() {
     printf("array a[] becomes:");
     int* aSortedSquares = sortedSquares(a, aSize, &aSize);
     printArray(aSortedSquares,aSize);
+    free(aSortedSquares);
 }
