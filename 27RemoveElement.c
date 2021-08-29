@@ -44,9 +44,33 @@ int removeElement(int* nums, int numsSize, int val){
     return count;
 }
 
-int main() {
+int removeElementBetter(int* nums, int numsSize, int val){
+    int i = -1, j = 0;
+    
+    if(!numsSize) return 0; 
+    
+    while(j < numsSize){
+        if(nums[j] == val){ //If the later num == val
+            while(j < numsSize && nums[j] == val) j++; //find the first num     
+                                                       //that != val
+            if(j < numsSize){
+                nums[++i] = nums[j]; //Let the current num be the num that != 
+                                     //val
+            } 
+        }
+        else if(i != j-1){//If a "gap" was created by skiping more then 1 val
+            nums[++i] = nums[j];
+        }
+        else{
+            i++;
+        }
+        j++;
+    }
+    return i+1; //i+1 happens to be the length of arranged array
+}
+
+void testRemoveElement() {
     int a[] = {0,1,2,2,3,0,4,2};
-    //pointerSwap(&a[0],&a[1]);
     int aSize = 8;
     int val = 2;
     printf("%d numbers remain\n",removeElement(a, aSize, val));
@@ -75,4 +99,43 @@ int main() {
     printf("\n");
     printf("\n");
     printf("\n");
+}
+
+void testRemoveElementBetter() {
+    int a[] = {0,1,2,2,3,0,4,2};
+    int aSize = 8;
+    int val = 2;
+    printf("%d numbers remain\n",removeElementBetter(a, aSize, val));
+    printf("a becomes:");
+    printArray(a, aSize);
+    printf("\n");
+    printf("\n");
+    printf("\n");
+
+    int b[] = {2};
+    int bSize = 1;
+    int bVal = 3;
+    printf("%d numbers remain\n", removeElementBetter(b,bSize,bVal));
+    printf("b becomes:");
+    printArray(b,bSize);
+    printf("\n");
+    printf("\n");
+    printf("\n"); 
+
+    int c[] = {4,5};
+    int cSize = 2;
+    int cVal = 4;
+    printf("%d numbers remain\n", removeElementBetter(c,cSize,cVal));
+    printf("c becomes:");
+    printArray(c,cSize);
+    printf("\n");
+    printf("\n");
+    printf("\n");
+}
+
+int main() {
+    printf("Testing my removeELement:\n");
+    testRemoveElement();
+    printf("Testing better and faster removeElement:\n");
+    testRemoveElementBetter();
 }
