@@ -24,21 +24,22 @@ int removeElement(int* nums, int numsSize, int val){
     int rightPointer = numsSize - 1, count = 0; 
     int j = numsSize - 1;
     for (int i = 0; i <= rightPointer; i++) {
-        while (j >= 0) {
+        while (j >= 0) { //This while loop finds the last element != val
             if (nums[j] != val || j == i) {
                 rightPointer = j;
                 break;
             }
             j--;
         }
-        if (j == -1) {
+        if (j == -1) { //If every element is traversed, return result
             return count;
         }
-        if (nums[i] == val) {
+        if (nums[i] == val) { //If current element == val, swap with the last 
+                              //the last element != val
             pointerSwap(&nums[i],&nums[rightPointer]);
         } 
         if (j != i || (j == i && nums[j] != val)) {
-            count++;
+            count++; //This is to prevent swaping same pair multiple times
         }
     }
     return count;
